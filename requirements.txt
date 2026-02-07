@@ -1,0 +1,5 @@
+langchain-community
+langchain-core
+pypdf
+scikit-learn
+sentence-transformers
