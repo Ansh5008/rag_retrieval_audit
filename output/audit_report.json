@@ -1,9 +1,10 @@
 {
   "query": "What is GDPR data retention policy for financial records?",
-  "score": 60,
+  "score": 70,
   "coverage": 100.0,
-  "precision": 0.67,
+  "precision": 1.0,
   "recall": 1.0,
-  "noise_ratio": 33.33,
-  "status": "PASS"
+  "noise_ratio": 0.0,
+  "status": "PASS",
+  "explanation": "In this context, the retrieval quality refers to how well the information returned from a search matches the query's intent. Here's a simple explanation:\n\n1. **Good Retrieval Quality**: If the search results provide detailed and accurate information about GDPR data retention policies specifically for financial records, then the retrieval quality is good. This means that the system understood the query correctly and delivered relevant and useful content.\n\n2. **Bad Retrieval Quality**: On the other hand, if the search results contain mostly unrelated or inaccurate information about GDPR data retention policies (or any other topic), then the retrieval quality is bad. This means that the system didn't understand the query as well as it could have, and the content returned doesn't meet the user's needs.\n\nIn this example, both coverage and noise ratio are high (1.0 and 0.0 respectively), indicating a good retrieval quality because the search results provide accurate information related to the query."
 }

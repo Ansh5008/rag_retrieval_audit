@@ -1,15 +1,10 @@
-import json
+def evaluate_retrieval(retrieved, ground_truth):
+    retrieved_ids = set(d["doc_id"] for d in retrieved)
+    gt_ids = set(ground_truth)
 
-def evaluate_retrieval(query_id, retrieved_docs):
-    with open("data/ground_truth.json") as f:
-        ground_truth = json.load(f)
+    tp = len(retrieved_ids & gt_ids)
 
-    true_docs = set(ground_truth[query_id])
-    retrieved_ids = set(d["doc_id"] for d in retrieved_docs)
-
-    true_positive = len(true_docs & retrieved_ids)
-
-    precision = true_positive / len(retrieved_ids)
-    recall = true_positive / len(true_docs)
+    precision = tp / len(retrieved_ids)
+    recall = tp / len(gt_ids)
 
     return round(precision, 2), round(recall, 2)

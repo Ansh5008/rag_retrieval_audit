@@ -22,30 +22,34 @@ Core Capabilities
 - Noise detection for irrelevant retrievals
 - Ground-truth evaluation (precision and recall)
 - Retrieval integrity scoring with clear PASS/FAIL logic
+- Optional LLM-based aspect extraction and explanations
 - Human-readable console output and JSON reporting
 
 How It Works
 ------------
 1. Load query and ground truth
-2. Retrieve top-k documents via embeddings
-3. Analyze coverage and noise
-4. Evaluate precision and recall
-5. Compute integrity score
-6. Generate JSON and console reports
+2. Extract key aspects of the query (LLM)
+3. Retrieve top-k documents from PDFs via embeddings
+4. Analyze coverage and noise
+5. Evaluate precision and recall
+6. Compute integrity score
+7. Generate JSON and console reports (including an LLM explanation)
 
 Project Structure
 -----------------
 rag_retrieval_audit/
 |-- main.py                 # Orchestrates the full audit pipeline
 |-- retrieve.py             # Semantic retrieval using embeddings
+|-- pdf_loader.py           # Loads PDFs from data/pdfs
 |-- analyze.py              # Coverage and noise analysis
 |-- evaluate.py             # Precision and recall (ground truth)
 |-- score.py                # Integrity score calculation
 |-- report.py               # JSON + console report generation
+|-- langchain_utils.py      # Aspect extraction + explanations (LLM)
 |-- data/
-|   |-- documents.json      # Knowledge base documents
 |   |-- queries.json        # Input queries
 |   |-- ground_truth.json   # Expected relevant documents
+|   |-- pdfs/               # Knowledge base PDFs
 |-- output/
 |   |-- audit_report.json   # Final audit output
 
@@ -73,15 +77,9 @@ that the system is broken.
 
 Data Format
 -----------
-documents.json
-```json
-[
-  {
-    "doc_id": "D1",
-    "text": "GDPR defines rules for data protection and privacy in the EU."
-  }
-]
-```
+PDFs
+Place source documents as PDFs in `data/pdfs/`. Each filename becomes a
+`doc_id` used in retrieval and evaluation.
 
 queries.json
 ```json
@@ -94,7 +92,7 @@ queries.json
 ground_truth.json
 ```json
 {
-  "q1": ["D1", "D2"]
+  "q1": ["gdpr.pdf", "finance_rules.pdf"]
 }
 ```
 
@@ -102,13 +100,16 @@ Usage
 -----
 1. Install dependencies:
 ```bash
-pip install sentence-transformers scikit-learn
+pip install sentence-transformers scikit-learn pypdf langchain langchain-openai
 ```
 
 2. Run the audit:
 ```bash
 python main.py
 ```
+
+Note: The LLM-based steps require `OPENAI_API_KEY` to be set in your
+environment.
 
 Output
 ------
@@ -133,6 +134,7 @@ JSON report: output/audit_report.json
   "precision": 0.67,
   "recall": 1.0,
   "noise_ratio": 33.33,
-  "status": "PASS"
+  "status": "PASS",
+  "explanation": "..."
 }
 ```

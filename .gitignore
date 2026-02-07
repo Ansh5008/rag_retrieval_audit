@@ -4,3 +4,5 @@ venv/
 *.pyc
 .vscode/
 .idea/
+data/pdfs/
+output/
