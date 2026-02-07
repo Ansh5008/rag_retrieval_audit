@@ -1,0 +1,9 @@
+{
+  "query": "What is GDPR data retention policy for financial records?",
+  "score": 60,
+  "coverage": 100.0,
+  "precision": 0.67,
+  "recall": 1.0,
+  "noise_ratio": 33.33,
+  "status": "PASS"
+}

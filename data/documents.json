@@ -1,0 +1,14 @@
+[
+  {
+    "doc_id": "D1",
+    "text": "GDPR defines rules for data protection and privacy in the EU."
+  },
+  {
+    "doc_id": "D2",
+    "text": "Financial records must be retained for at least five years under EU regulations."
+  },
+  {
+    "doc_id": "D3",
+    "text": "Cloud storage systems use distributed architectures."
+  }
+]
